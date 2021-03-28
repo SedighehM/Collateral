@@ -1,0 +1,150 @@
+<div class="row industrialForm">
+  <div class="col-md-10 col-xl-8 mx-auto">
+    <div class="card mt-1">
+      <div class="card-header">
+        <h5>فرم محل اجرای طرح</h5>
+      </div>
+      <div class="card-body">
+        <form class="myForm" [formGroup]="industrialForm">
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="id">شناسه وثیقه</label>
+              <input type="text" formControlName="id" class="form-control" id="id">
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.id.errors">شناسه اجباری است</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="owner">نام مالک وثیقه</label>
+              <input type="text" formControlName="owner" class="form-control" id="owner">
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.owner.errors">نام مالک اجباری است</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="entryDate">تاریخ ثبت وثیقه</label>
+              <input type="date" formControlName="entryDate" class="form-control" id="entryDate">
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.entryDate.errors">تاریخ ثبت اجباری است</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="name">نام طرح</label>
+              <input type="text" class="form-control" formControlName="name" id="name"
+                placeholder="نام طرح را وارد کنید">
+                <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.errors">نام طرح اجباری است</span>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputAddress">نوع طرح صنعتی</label>
+              <input type="text" class="form-control" formControlName="type" id="inputAddress">
+            </div>
+          </div>
+
+          <div class="form-row" formGroupName="landPropertie">
+            <div class="form-group col-md-4">
+              <label for="area">مساحت زمین طرح</label>
+              <input type="text" formControlName="area" class="form-control" id="area"
+                placeholder="مساحت زمین طرح را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="cost">قیمت هر مترمربع</label>
+              <input type="text" class="form-control" formControlName="cost" id="cost"
+                placeholder="قیمت هر مترمربع را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="value">ارزش زمین</label>
+              <input type="text" class="form-control" formControlName="value" id="value"
+                placeholder="ارزش زمین را وارد کنید">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="location">مکان و موقعیت طرح</label>
+              <input type="text" class="form-control" id="location" formControlName="location"
+                placeholder="مکان و موقعیت طرح را وارد کنید">
+            </div>
+          </div>
+
+          <div class="form-row" formGroupName="fence">
+            <div class="form-group col-md-4">
+              <label for="length">طول دیوار</label>
+              <input type="text" class="form-control" formControlName="length" id="length"
+                placeholder="مساحت زمین طرح را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="height">ارتفاع دیوار</label>
+              <input type="text" class="form-control" id="height" formControlName="height"
+                placeholder="قیمت هر مترمربع را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="fenceType">نوع دیوارکشی</label>
+              <input type="text" class="form-control" formControlName="fenceType" id="fenceType"
+                placeholder="ارزش زمین را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="status">وضعیت دیوارکشی</label>
+              <input type="text" class="form-control" formControlName="status" id="status"
+                placeholder="مکان و موقعیت طرح را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="completedDate">تاریخ تکمیل دیوارکشی</label>
+              <input type="text" class="form-control" formControlName="completedDate" id="completedDate"
+                placeholder="مکان و موقعیت طرح را وارد کنید">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="fenceValue">ارزش دیوارکشی</label>
+              <input type="text" class="form-control" formControlName="fenceValue" id="fenceValue"
+                placeholder="مکان و موقعیت طرح را وارد کنید">
+            </div>
+          </div>
+          <button type="button" (click)="onAddBuilding()" class="btn btn-secondary">افزودن ساختمان</button>
+
+          <table *ngIf="getControls().length>0" class="table table-bordered">
+            <thead>
+              <th>ردیف</th>
+              <th>کاربری ساختمان</th>
+              <th>تعداد طبقات</th>
+              <th>مساحت زیربنا</th>
+              <th>وضعیت ساختمان</th>
+              <th>تاریخ تکمیل</th>
+              <th>ارزش</th>
+              <th>عملیات</th>
+            </thead>
+            <tbody formArrayName="buildings">
+              <tr *ngFor="let building of getControls(); let i=index;let l=last" [formGroupName]="i">
+                <td>{{i+1}}</td>
+                <td>
+                  <input formControlName="buildingUsage" class="form-control">
+                </td>
+                <td>
+                  <input formControlName="floors" class="form-control">
+                </td>
+                <td>
+                  <input formControlName="buildingArea" class="form-control">
+                </td>
+                <td>
+                  <input formControlName="buildingSatus" class="form-control">
+                </td>
+                <td>
+                  <input type="date" formControlName="completedDate" class="form-control">
+                </td>
+                <td>
+                  <input formControlName="value" class="form-control">
+                </td>
+                <td>
+                  <button *ngIf="getControls().length > 0" (click)="deleteBuilding(i)"
+                    class="btn btn-danger">حذف</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="row">
+            <div class="col-9"></div>
+            <div class="col-2">
+              <button type="button" (click)="back()" class="btn btn-danger">بازگشت</button>
+
+            </div>
+            <div class="col-1">
+              <button type="submit" (click)="onSubmit()" class="btn btn-success">ثبت</button>
+
+
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

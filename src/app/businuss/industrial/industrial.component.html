@@ -1,0 +1,29 @@
+<div class="row industrial">
+  <div class="col-md-10 col-xl-8 mx-auto">
+    <button type="button" class="btn btn-dark" (click)="goToAdd()">افزودن</button>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">عملیات</th>
+          <th scope="col">تاریخ ثبت وثیقه</th>
+          <th scope="col">نام مالک وثیقه</th>
+          <th scope="col">نام طرح</th>
+          <th scope="col">شناسه وثیقه</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let industrial of industrials">
+          <td>
+            <i class="fa fa-trash" (click)="deleteIndustrial($event,industrial.id)" style="color: red;padding: 5px;" aria-hidden="true"></i>
+            <i class="fa fa-pencil-square-o" (click)="goToEdit($event,industrial.id)" style="color: green;" aria-hidden="true"></i>
+          </td>
+          <td>{{industrial.entryDate}}</td>
+          <td>{{industrial.owner}}</td>
+          <td>{{industrial.name}}</td>
+          <td>{{industrial.id}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
