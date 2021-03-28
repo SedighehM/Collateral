@@ -20,5 +20,4 @@ export class IndustrialsService {
   getIndustrialById(id:number):Observable<any>{
     return this.httpClient.get<any>("http://localhost:3000/industrials/"+id)
   }
-  updateIndustrial(id:number,industrial:any):
 }
