@@ -20,4 +20,13 @@ export class IndustrialsService {
   getIndustrialById(id:number):Observable<any>{
     return this.httpClient.get<any>("http://localhost:3000/industrials/"+id)
   }
+  getStatuses():Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:3000/statuses")
+  }
+  getUsages():Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:3000/usages")
+  }
+  getTypes():Observable<any[]>{
+    return this.httpClient.get<any[]>("http://localhost:3000/types")
+  }
 }

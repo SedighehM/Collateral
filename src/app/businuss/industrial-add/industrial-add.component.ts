@@ -16,6 +16,10 @@ import { IndustrialsService } from 'src/app/industrials.service';
 })
 export class IndustrialAddComponent implements OnInit {
   industrialForm: FormGroup = new FormGroup({});
+  submitted: boolean = false;
+  statuses: any[] = [];
+  usages: any[] = [];
+  types: any[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -26,16 +30,17 @@ export class IndustrialAddComponent implements OnInit {
 
   onAddBuilding() {
     var formGroup = new FormGroup({
-      value: new FormControl(null, [Validators.required]),
-      completedDate: new FormControl(),
-      buildingSatus: new FormControl(),
-      buildingArea: new FormControl(),
-      floors: new FormControl(),
-      buildingUsage: new FormControl(),
+      value: new FormControl('', [Validators.required]),
+      completedDate: new FormControl('', [Validators.required]),
+      buildingSatus: new FormControl('', [Validators.required]),
+      buildingArea: new FormControl('', [Validators.required]),
+      floors: new FormControl('', [Validators.required]),
+      buildingUsage: new FormControl('', [Validators.required]),
     });
 
     (<FormArray>this.industrialForm.get('buildings')).push(formGroup);
   }
+
   getControls() {
     return (this.industrialForm.get('buildings') as FormArray).controls;
   }
@@ -46,12 +51,14 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
   onSubmit() {
-    this.IndustrialsService.insertIndustrial(
-      this.industrialForm.value
-    ).subscribe((response) => {
-      this.back();
-    });
-    console.log(this.industrialForm);
+    this.submitted = true;
+    if (this.industrialForm.valid) {
+      this.IndustrialsService.insertIndustrial(
+        this.industrialForm.value
+      ).subscribe((response) => {
+        this.back();
+      });
+    }
   }
   ngOnInit(): void {
     this.industrialForm = this.formBuilder.group({
@@ -80,9 +87,18 @@ export class IndustrialAddComponent implements OnInit {
       let industrialId = params['id'];
       this.IndustrialsService.getIndustrialById(industrialId).subscribe(
         (industrial: any) => {
-          this.industrialForm.patchValue(industrial)
+          this.industrialForm.patchValue(industrial);
         }
       );
+    });
+    this.IndustrialsService.getStatuses().subscribe((response) => {
+      this.statuses = response;
+    });
+    this.IndustrialsService.getUsages().subscribe((response) => {
+      this.usages = response;
+    });
+    this.IndustrialsService.getTypes().subscribe((response) => {
+      this.types = response;
     });
   }
 }

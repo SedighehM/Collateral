@@ -10,27 +10,44 @@
             <div class="form-group col-md-4">
               <label for="id">شناسه وثیقه</label>
               <input type="text" formControlName="id" class="form-control" id="id">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.id.errors">شناسه اجباری است</span>
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.id.invalid
+              && (industrialForm.controls.id.touched
+              || industrialForm.controls.id.errors?.dirty || submitted)
+               && industrialForm.controls.id.errors?.required">شناسه وثیقه اجباری است</span>
             </div>
             <div class="form-group col-md-4">
               <label for="owner">نام مالک وثیقه</label>
               <input type="text" formControlName="owner" class="form-control" id="owner">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.owner.errors">نام مالک اجباری است</span>
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.owner.invalid
+               && (industrialForm.controls.owner.touched
+               || industrialForm.controls.owner.errors?.dirty || submitted)
+                && industrialForm.controls.owner.errors?.required">نام مالک اجباری است</span>
+
+
             </div>
             <div class="form-group col-md-4">
               <label for="entryDate">تاریخ ثبت وثیقه</label>
               <input type="date" formControlName="entryDate" class="form-control" id="entryDate">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.entryDate.errors">تاریخ ثبت اجباری است</span>
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.entryDate.invalid
+              && (industrialForm.controls.entryDate.touched
+              || industrialForm.controls.entryDate.errors?.dirty || submitted)
+               && industrialForm.controls.entryDate.errors?.required">تاریخ ثبت اجباری است</span>
             </div>
             <div class="form-group col-md-4">
               <label for="name">نام طرح</label>
               <input type="text" class="form-control" formControlName="name" id="name"
                 placeholder="نام طرح را وارد کنید">
-                <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.errors">نام طرح اجباری است</span>
+                <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.invalid
+                && (industrialForm.controls.name.touched
+                || industrialForm.controls.name.errors?.dirty || submitted)
+                 && industrialForm.controls.name.errors?.required">نام طرح اجباری است</span>
             </div>
             <div class="form-group col-md-4">
               <label for="inputAddress">نوع طرح صنعتی</label>
-              <input type="text" class="form-control" formControlName="type" id="inputAddress">
+              <select class="form-control" formControlName="type" id="inputAddress">
+                <option value="null">نوع طرح صنعتی</option>
+                <option *ngFor="let type of types" [value]="type">{{type}}</option>
+              </select>
             </div>
           </div>
 
@@ -75,8 +92,10 @@
             </div>
             <div class="form-group col-md-4">
               <label for="status">وضعیت دیوارکشی</label>
-              <input type="text" class="form-control" formControlName="status" id="status"
-                placeholder="مکان و موقعیت طرح را وارد کنید">
+              <select class="form-control" formControlName="status" id="status">
+                <option value="null">وضعیت دیوارکشی</option>
+                <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+              </select>
             </div>
             <div class="form-group col-md-4">
               <label for="completedDate">تاریخ تکمیل دیوارکشی</label>
@@ -106,27 +125,42 @@
               <tr *ngFor="let building of getControls(); let i=index;let l=last" [formGroupName]="i">
                 <td>{{i+1}}</td>
                 <td>
-                  <input formControlName="buildingUsage" class="form-control">
+                  <select formControlName="buildingUsage" class="form-control">
+                    <option value="null">کاربری ساختمان</option>
+                    <option *ngFor="let usage of usages" [value]="usage">{{usage}}</option>
+                  </select>
+                  <span class="text-danger" *ngIf="building.hasError('required',['buildingUsage'])">اجباری</span>
                 </td>
                 <td>
                   <input formControlName="floors" class="form-control">
+                  <span class="text-danger" *ngIf="building.hasError('required',['floors'])">اجباری</span>
                 </td>
                 <td>
                   <input formControlName="buildingArea" class="form-control">
+                  <span class="text-danger" *ngIf="building.hasError('required',['buildingArea'])">اجباری</span>
                 </td>
                 <td>
-                  <input formControlName="buildingSatus" class="form-control">
+                  <select formControlName="buildingSatus" class="form-control">
+                    <option value="null">وضعیت ساختمان</option>
+                    <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+                  </select>
+
+                  <span class="text-danger" *ngIf="building.hasError('required',['buildingSatus'])">اجباری</span>
                 </td>
                 <td>
                   <input type="date" formControlName="completedDate" class="form-control">
+                  <span class="text-danger" *ngIf="building.hasError('required',['completedDate'])">اجباری</span>
+
                 </td>
                 <td>
                   <input formControlName="value" class="form-control">
+                  <span class="text-danger" *ngIf="building.hasError('required',['value'])">اجباری</span>
                 </td>
                 <td>
                   <button *ngIf="getControls().length > 0" (click)="deleteBuilding(i)"
                     class="btn btn-danger">حذف</button>
                 </td>
+
               </tr>
             </tbody>
           </table>
