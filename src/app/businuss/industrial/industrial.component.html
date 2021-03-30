@@ -1,6 +1,38 @@
 <div class="row industrial">
   <div class="col-md-10 col-xl-8 mx-auto">
-    <button type="button" class="btn btn-dark" (click)="goToAdd()">افزودن</button>
+    <div class="mt-3">
+      <div>
+        <form class="myForm" [formGroup]="searchForm">
+          <div class="form-row">
+            <div class="form-group col-md-3">
+              <label for="entryDate">تاریخ ثبت</label>
+              <input type="date" formControlName="entryDate" class="form-control" id="entryDate">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="name">نام طرح</label>
+              <input type="text" formControlName="name" class="form-control" id="name">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="owner">نام مالک </label>
+              <input type="text" formControlName="owner" class="form-control" id="owner">
+            </div>
+            <div class="form-group col-md-3">
+              <label for="id">شناسه وثیقه</label>
+              <input type="text" formControlName="id" class="form-control" id="id">
+            </div>
+          </div>
+          <div class="row mb-4">
+            <div class="col-2">
+              <button type="button" class="btn btn-dark" (click)="goToAdd()">افزودن</button>
+            </div>
+            <div class="col-7"></div>
+            <div class="col-3">
+              <button type="submit" (click)="onSearch()" class="btn btn-dark">جستجو</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <table class="table table-striped">
       <thead>
@@ -15,8 +47,10 @@
       <tbody>
         <tr *ngFor="let industrial of industrials">
           <td>
-            <i class="fa fa-trash" (click)="deleteIndustrial($event,industrial.id)" style="color: red;padding: 5px;" aria-hidden="true"></i>
-            <i class="fa fa-pencil-square-o" (click)="goToEdit($event,industrial.id)" style="color: green;" aria-hidden="true"></i>
+            <i class="fa fa-trash" (click)="deleteIndustrial($event,industrial.id)" style="color: red;padding: 5px;"
+              aria-hidden="true"></i>
+            <i class="fa fa-pencil-square-o" (click)="goToEdit($event,industrial.id)" style="color: green;"
+              aria-hidden="true"></i>
           </td>
           <td>{{industrial.entryDate}}</td>
           <td>{{industrial.owner}}</td>

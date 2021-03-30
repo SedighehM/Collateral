@@ -88,9 +88,24 @@ export class IndustrialAddComponent implements OnInit {
       this.IndustrialsService.getIndustrialById(industrialId).subscribe(
         (industrial: any) => {
           this.industrialForm.patchValue(industrial);
+          industrial.buildings.forEach((building:any) => {
+            var formGroup = new FormGroup({
+              value: new FormControl(building.value, [Validators.required]),
+              completedDate: new FormControl(building.completedDate, [Validators.required]),
+              buildingSatus: new FormControl(building.buildingSatus, [Validators.required]),
+              buildingArea: new FormControl(building.buildingArea, [Validators.required]),
+              floors: new FormControl(building.floors, [Validators.required]),
+              buildingUsage: new FormControl(building.buildingUsage, [Validators.required]),
+            });
+
+            (<FormArray>this.industrialForm.get('buildings')).push(formGroup);
+          });
+
         }
       );
     });
+    console.log(this.industrialForm.value)
+    console.log(this.getControls())
     this.IndustrialsService.getStatuses().subscribe((response) => {
       this.statuses = response;
     });
