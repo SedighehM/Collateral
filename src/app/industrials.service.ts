@@ -29,4 +29,7 @@ export class IndustrialsService {
   getTypes():Observable<any[]>{
     return this.httpClient.get<any[]>("http://localhost:3000/types")
   }
+  editIndustrial(editedIndustrial:any,id:number):Observable<any>{
+    return this.httpClient.put<any>("http://localhost:3000/industrials/"+id,editedIndustrial)
+  }
 }

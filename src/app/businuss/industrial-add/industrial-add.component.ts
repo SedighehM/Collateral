@@ -20,6 +20,7 @@ export class IndustrialAddComponent implements OnInit {
   statuses: any[] = [];
   usages: any[] = [];
   types: any[] = [];
+  industrialId: number = 0;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -53,11 +54,20 @@ export class IndustrialAddComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     if (this.industrialForm.valid) {
-      this.IndustrialsService.insertIndustrial(
-        this.industrialForm.value
-      ).subscribe((response) => {
-        this.back();
-      });
+      if (!this.industrialId) {
+        this.IndustrialsService.insertIndustrial(
+          this.industrialForm.value
+        ).subscribe((response) => {
+          this.back();
+        });
+      } else {
+        this.IndustrialsService.editIndustrial(
+          this.industrialForm.value,
+          this.industrialId
+        ).subscribe((response) => {
+          this.back();
+        });
+      }
     }
   }
   ngOnInit(): void {
@@ -84,28 +94,35 @@ export class IndustrialAddComponent implements OnInit {
       buildings: this.formBuilder.array([]),
     });
     this.activatedRoute.params.subscribe((params) => {
-      let industrialId = params['id'];
-      this.IndustrialsService.getIndustrialById(industrialId).subscribe(
+      this.industrialId = params['id'];
+      this.IndustrialsService.getIndustrialById(this.industrialId).subscribe(
         (industrial: any) => {
           this.industrialForm.patchValue(industrial);
-          industrial.buildings.forEach((building:any) => {
+          industrial.buildings.forEach((building: any) => {
             var formGroup = new FormGroup({
               value: new FormControl(building.value, [Validators.required]),
-              completedDate: new FormControl(building.completedDate, [Validators.required]),
-              buildingSatus: new FormControl(building.buildingSatus, [Validators.required]),
-              buildingArea: new FormControl(building.buildingArea, [Validators.required]),
+              completedDate: new FormControl(building.completedDate, [
+                Validators.required,
+              ]),
+              buildingSatus: new FormControl(building.buildingSatus, [
+                Validators.required,
+              ]),
+              buildingArea: new FormControl(building.buildingArea, [
+                Validators.required,
+              ]),
               floors: new FormControl(building.floors, [Validators.required]),
-              buildingUsage: new FormControl(building.buildingUsage, [Validators.required]),
+              buildingUsage: new FormControl(building.buildingUsage, [
+                Validators.required,
+              ]),
             });
 
             (<FormArray>this.industrialForm.get('buildings')).push(formGroup);
           });
-
         }
       );
     });
-    console.log(this.industrialForm.value)
-    console.log(this.getControls())
+    console.log(this.industrialForm.value);
+    console.log(this.getControls());
     this.IndustrialsService.getStatuses().subscribe((response) => {
       this.statuses = response;
     });
