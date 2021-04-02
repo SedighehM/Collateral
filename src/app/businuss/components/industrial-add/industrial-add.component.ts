@@ -24,6 +24,7 @@ export class IndustrialAddComponent implements OnInit {
   statuses: any[] = [];
   usages: any[] = [];
   types: any[] = [];
+  subscription:Subscription=new Subscription();
   industrialId: number = 0;
   constructor(
     private modalService: NgbModal,
@@ -44,15 +45,14 @@ export class IndustrialAddComponent implements OnInit {
   }
   addAddress() {
     const modalRef = this.modalService.open(AddressModalComponent);
-    if (this.checkAddress()) {
-      modalRef.componentInstance.Address = <FormGroup>(
-        this.industrialForm.controls['address']
-      );
+    if(this.checkAddress()){
+      modalRef.componentInstance.addressObject = this.industrialForm.value.address;
     }
-    modalRef.componentInstance.emitService.subscribe((emmitedValue: any) => {
-      debugger;
+    this.subscription=modalRef.componentInstance.emitService.subscribe((emmitedValue: any) => {
+      debugger
       this.industrialForm.controls['address'].setValue(emmitedValue.value);
       modalRef.close();
+
     });
     modalRef.componentInstance.closeEmit.subscribe(() => {
       modalRef.close();
@@ -81,7 +81,7 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
   onSubmit() {
-    console.log(this.industrialForm.value);
+    console.log(this.industrialForm.value)
     this.submitted = true;
     if (this.industrialForm.valid) {
       if (!this.industrialId) {
