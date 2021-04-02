@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import {
   FormArray,
   FormBuilder,
@@ -7,7 +9,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { IndustrialsService } from 'src/app/industrials.service';
+import { AddressModalComponent } from '../address-modal/address-modal.component';
+import { IndustrialsService } from '../../services/industrials.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-industrial-add',
@@ -21,14 +25,39 @@ export class IndustrialAddComponent implements OnInit {
   usages: any[] = [];
   types: any[] = [];
   industrialId: number = 0;
-
   constructor(
+    private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private router: Router,
     private IndustrialsService: IndustrialsService
   ) {}
-
+  checkAddress() {
+    return (
+      this.industrialForm.value.address.registerationNumber ||
+      this.industrialForm.value.address.registerationDate ||
+      this.industrialForm.value.address.registerationLocation ||
+      this.industrialForm.value.address.primaryPelalk ||
+      this.industrialForm.value.address.secondaryPelak ||
+      this.industrialForm.value.address.details
+    );
+  }
+  addAddress() {
+    const modalRef = this.modalService.open(AddressModalComponent);
+    if (this.checkAddress()) {
+      modalRef.componentInstance.Address = <FormGroup>(
+        this.industrialForm.controls['address']
+      );
+    }
+    modalRef.componentInstance.emitService.subscribe((emmitedValue: any) => {
+      debugger;
+      this.industrialForm.controls['address'].setValue(emmitedValue.value);
+      modalRef.close();
+    });
+    modalRef.componentInstance.closeEmit.subscribe(() => {
+      modalRef.close();
+    });
+  }
   onAddBuilding() {
     var formGroup = new FormGroup({
       value: new FormControl('', [Validators.required]),
@@ -52,6 +81,7 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
   onSubmit() {
+    console.log(this.industrialForm.value);
     this.submitted = true;
     if (this.industrialForm.valid) {
       if (!this.industrialId) {
@@ -82,6 +112,14 @@ export class IndustrialAddComponent implements OnInit {
         cost: new FormControl(null),
         value: new FormControl(null),
         location: new FormControl(null),
+      }),
+      address: this.formBuilder.group({
+        registerationNumber: new FormControl(),
+        registerationDate: new FormControl(),
+        registerationLocation: new FormControl(),
+        primaryPelalk: new FormControl(),
+        secondaryPelak: new FormControl(),
+        details: new FormControl(),
       }),
       fence: this.formBuilder.group({
         length: new FormControl(null),
@@ -121,8 +159,6 @@ export class IndustrialAddComponent implements OnInit {
         }
       );
     });
-    console.log(this.industrialForm.value);
-    console.log(this.getControls());
     this.IndustrialsService.getStatuses().subscribe((response) => {
       this.statuses = response;
     });

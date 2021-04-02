@@ -1,0 +1,36 @@
+.myForm {
+  direction: rtl;
+  font-size: 15px;
+}
+label {
+  float: right;
+}
+.industrialForm {
+  position: absolute;
+  top: 50px;
+  bottom: 100px;
+  left: 0px;
+  right: 0px;
+  overflow: auto;
+}
+.table {
+  font-size: 10px;
+  text-align: center;
+}
+.card-header {
+  text-align: right;
+}
+.btn-secondary {
+  float: right;
+  font-size: 13px;
+}
+.errorMessage {
+  float: right;
+  font-size: 13px;
+}
+.addressCard {
+  border: 1px solid honeydew;
+}
+h6 {
+  text-align: right;
+}

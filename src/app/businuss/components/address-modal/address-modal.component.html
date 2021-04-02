@@ -1,0 +1,42 @@
+    <div class="card">
+      <div class="card-header">
+        <h5>فرم ثبت اطلاعات سندرسمی</h5>
+      </div>
+      <div class="card-body">
+        <form class="myForm" [formGroup]="Address">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="registerationNumber">شماره ثبت سند</label>
+              <input type="text" formControlName="registerationNumber" class="form-control"
+                id="registerationNumber">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="registerationDate">تاریخ ثبت سند</label>
+              <input type="date" class="form-control" formControlName="registerationDate"
+                id="registerationDate">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="registerationLocation">محل ثبت سند</label>
+              <input type="text" class="form-control" formControlName="registerationLocation"
+                id="registerationLocation">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="primaryPelalk">شماره پلاک اصلی</label>
+              <input type="text" class="form-control" id="primaryPelalk" formControlName="primaryPelalk">
+            </div>
+            <div class="form-group col-md-4">
+              <label for="secondaryPelak">شماره پلاک فرعی</label>
+              <input type="text" class="form-control" id="secondaryPelak" formControlName="secondaryPelak">
+            </div>
+            <div class="form-group col-md-12">
+              <label for="details">توضیحات سند</label>
+              <textarea class="form-control" id="details" formControlName="details"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer">
+        <button type="button" class="btn btn-success" (click)="addAddress()" data-dismiss="modal">ثبت</button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()" data-dismiss="modal" >انصراف</button>
+      </div>
+    </div>

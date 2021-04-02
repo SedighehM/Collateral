@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { IndustrialComponent } from './businuss/industrial/industrial.component';
-import { SettingComponent } from './setting/setting.component';
-import { IndustrialAddComponent } from './businuss/industrial-add/industrial-add.component';
+import { IndustrialAddComponent } from './businuss/components/industrial-add/industrial-add.component';
+import { IndustrialComponent } from './businuss/components/industrial/industrial.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { SettingComponent } from './components/setting/setting.component';
+
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent },

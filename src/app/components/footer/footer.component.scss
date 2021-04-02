@@ -3,17 +3,14 @@ $primary-orange: #fec503; //before: fed136
 $footer-background-light-grey: #212529;
 $footer-background-grey: #1a1d20;
 $social-buttons-circle-dark-grey: #1a1d20;
+span{
+  color: white;
+}
+a{
+  color: white;
+}
 
-.col-md-4:nth-child(even) {
-  // background: blue;
-}
-.col-md-4:nth-child(odd) {
-  // background: red;
-}
 
-a {
-  color: $link-light-grey;
-}
 a:hover {
   color: $primary-orange;
   text-decoration: none;
@@ -25,13 +22,14 @@ a:hover {
 }
 
 footer {
+  text-align: right;
   position: absolute;
   bottom: 0px;
   left: 0px;
   right: 0px;
   overflow: hidden;
   width: 91%;
-  height: 10%;
+  height: 15%;
   padding: 1rem 0;
   background-color: #474343;
 }
@@ -50,9 +48,7 @@ footer {
     .nav-link {
       padding: 0.1rem 0;
     }
-    span.nav-link {
-      color: $link-light-grey;
-    }
+
     span.footer-title {
       font-size: 14px;
       font-weight: 700;
@@ -66,7 +62,7 @@ footer {
   ul {
     display: inline-block;
     @media (min-width: 768px) {
-      text-align: left;
+      text-align: right;
     }
     //border: yellow solid 1px;
   }

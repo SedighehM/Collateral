@@ -37,7 +37,7 @@
               <label for="name">نام طرح</label>
               <input type="text" class="form-control" formControlName="name" id="name"
                 placeholder="نام طرح را وارد کنید">
-                <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.invalid
+              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.invalid
                 && (industrialForm.controls.name.touched
                 || industrialForm.controls.name.errors?.dirty || submitted)
                  && industrialForm.controls.name.errors?.required">نام طرح اجباری است</span>
@@ -49,7 +49,27 @@
                 <option *ngFor="let type of types" [value]="type">{{type}}</option>
               </select>
             </div>
+            <div style="padding-top:30px ;" class="col-md-4">
+              <button type="button" class="btn btn-secondary" (click)="addAddress()">
+                ثبت و ویرایش نشانی طرح </button>
+            </div>
+            <div *ngIf="checkAddress()" class="card" style="padding: 10px;">
+              <div class="card-header">
+                <h6>اطلاعات سند رسمی</h6>
+              </div>
+              <div class="card-body row">
+                <h6 class="col-4">شماره ثبت سند <span
+                    class="badge badge-secondary">{{industrialForm.value.address?.registerationNumber}}</span></h6>
+                <h6 class="col-4">تاریخ ثبت سند <span class="badge badge-secondary">{{industrialForm.value.address?.registerationDate}}</span></h6>
+                <h6 class="col-4">محل ثبت سند <span class="badge badge-secondary">{{industrialForm.value.address?.registerationLocation}}</span></h6>
+                <h6 class="col-4">شماره پلاک اصلی <span class="badge badge-secondary">{{industrialForm.value.address?.primaryPelalk}}</span></h6>
+                <h6 class="col-4">فرعی <span class="badge badge-secondary">{{industrialForm.value.address?.secondaryPelak}}</span></h6>
+                <h6 class="col-4">توضیحات سند <span class="badge badge-secondary">{{industrialForm.value.address?.details}}</span></h6>
+              </div>
+
+            </div>
           </div>
+
 
           <div class="form-row" formGroupName="landPropertie">
             <div class="form-group col-md-4">
