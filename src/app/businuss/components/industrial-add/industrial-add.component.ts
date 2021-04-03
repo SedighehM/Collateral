@@ -24,7 +24,7 @@ export class IndustrialAddComponent implements OnInit {
   statuses: any[] = [];
   usages: any[] = [];
   types: any[] = [];
-  subscription:Subscription=new Subscription();
+  subscription: Subscription = new Subscription();
   industrialId: number = 0;
   constructor(
     private modalService: NgbModal,
@@ -45,15 +45,15 @@ export class IndustrialAddComponent implements OnInit {
   }
   addAddress() {
     const modalRef = this.modalService.open(AddressModalComponent);
-    if(this.checkAddress()){
+    if (this.checkAddress()) {
       modalRef.componentInstance.addressObject = this.industrialForm.value.address;
     }
-    this.subscription=modalRef.componentInstance.emitService.subscribe((emmitedValue: any) => {
-      debugger
-      this.industrialForm.controls['address'].setValue(emmitedValue.value);
-      modalRef.close();
-
-    });
+    this.subscription = modalRef.componentInstance.emitService.subscribe(
+      (emmitedValue: any) => {
+        this.industrialForm.controls['address'].setValue(emmitedValue.value);
+        modalRef.close();
+      }
+    );
     modalRef.componentInstance.closeEmit.subscribe(() => {
       modalRef.close();
     });
@@ -81,7 +81,7 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
   onSubmit() {
-    console.log(this.industrialForm.value)
+    console.log(this.industrialForm.value);
     this.submitted = true;
     if (this.industrialForm.valid) {
       if (!this.industrialId) {
@@ -100,7 +100,7 @@ export class IndustrialAddComponent implements OnInit {
       }
     }
   }
-  ngOnInit(): void {
+  buildForm() {
     this.industrialForm = this.formBuilder.group({
       entryDate: [null, [Validators.required]],
       id: [null, [Validators.required]],
@@ -131,6 +131,8 @@ export class IndustrialAddComponent implements OnInit {
       }),
       buildings: this.formBuilder.array([]),
     });
+  }
+  getIndustrial() {
     this.activatedRoute.params.subscribe((params) => {
       this.industrialId = params['id'];
       this.IndustrialsService.getIndustrialById(this.industrialId).subscribe(
@@ -159,6 +161,10 @@ export class IndustrialAddComponent implements OnInit {
         }
       );
     });
+  }
+  ngOnInit(): void {
+    this.buildForm();
+    this.getIndustrial();
     this.IndustrialsService.getStatuses().subscribe((response) => {
       this.statuses = response;
     });

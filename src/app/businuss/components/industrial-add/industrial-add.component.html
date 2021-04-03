@@ -9,7 +9,7 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="id">شناسه وثیقه</label>
-              <input type="text" formControlName="id" class="form-control" id="id">
+              <input type="text" formControlName="id" placeholder="شناسه وثیقه را وارد کنید" class="form-control" id="id">
               <span class="text-danger errorMessage" *ngIf="industrialForm.controls.id.invalid
               && (industrialForm.controls.id.touched
               || industrialForm.controls.id.errors?.dirty || submitted)
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group col-md-4">
               <label for="owner">نام مالک وثیقه</label>
-              <input type="text" formControlName="owner" class="form-control" id="owner">
+              <input type="text" formControlName="owner" class="form-control" id="owner" placeholder="نام مالک وثیقه را وارد کنید">
               <span class="text-danger errorMessage" *ngIf="industrialForm.controls.owner.invalid
                && (industrialForm.controls.owner.touched
                || industrialForm.controls.owner.errors?.dirty || submitted)
@@ -98,17 +98,17 @@
             <div class="form-group col-md-4">
               <label for="length">طول دیوار</label>
               <input type="text" class="form-control" formControlName="length" id="length"
-                placeholder="مساحت زمین طرح را وارد کنید">
+                placeholder="طول دیوار را وارد کنید">
             </div>
             <div class="form-group col-md-4">
               <label for="height">ارتفاع دیوار</label>
               <input type="text" class="form-control" id="height" formControlName="height"
-                placeholder="قیمت هر مترمربع را وارد کنید">
+                placeholder="ارتفاع دیوار را وارد کنید">
             </div>
             <div class="form-group col-md-4">
               <label for="fenceType">نوع دیوارکشی</label>
               <input type="text" class="form-control" formControlName="fenceType" id="fenceType"
-                placeholder="ارزش زمین را وارد کنید">
+                placeholder="نوع دیوارکشی را وارد کنید">
             </div>
             <div class="form-group col-md-4">
               <label for="status">وضعیت دیوارکشی</label>
@@ -125,7 +125,7 @@
             <div class="form-group col-md-4">
               <label for="fenceValue">ارزش دیوارکشی</label>
               <input type="text" class="form-control" formControlName="fenceValue" id="fenceValue"
-                placeholder="مکان و موقعیت طرح را وارد کنید">
+                placeholder="ارزش دیوارکشی را وارد کنید">
             </div>
           </div>
           <button type="button" (click)="onAddBuilding()" class="btn btn-secondary">افزودن ساختمان</button>
