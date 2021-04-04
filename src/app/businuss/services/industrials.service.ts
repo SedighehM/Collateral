@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { BaseServiceService } from 'src/app/base-service.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IndustrialsService {
-
-  constructor(private httpClient:HttpClient) { }
-  getIndustrials():Observable<any[]>{
-   return this.httpClient.get<any[]>("http://localhost:3000/industrials")
+  constructor(private baseService: BaseServiceService) {}
+  getIndustrials(): Observable<any> {
+    return this.baseService.get('industrials');
   }
-  insertIndustrial(newIndustrial:any):Observable<any>{
-    return this.httpClient.post<any>("http://localhost:3000/industrials",newIndustrial)
+  insertIndustrial(newIndustrial: any): Observable<any> {
+    return this.baseService.post('industrials/', newIndustrial);
   }
-  deleteIndustrial(id:number):Observable<string>{
-    return this.httpClient.delete<string>("http://localhost:3000/industrials/"+id)
+  deleteIndustrial(id: number): Observable<string> {
+    return this.baseService.delete('industrials/', id);
   }
-  getIndustrialById(id:number):Observable<any>{
-    return this.httpClient.get<any>("http://localhost:3000/industrials/"+id)
+  getIndustrialById(id: number): Observable<any> {
+    return this.baseService.get('industrials/' + id);
   }
-  getStatuses():Observable<any[]>{
-    return this.httpClient.get<any[]>("http://localhost:3000/statuses")
+  getStatuses(): Observable<any[]> {
+    return this.baseService.get('statuses');
   }
-  getUsages():Observable<any[]>{
-    return this.httpClient.get<any[]>("http://localhost:3000/usages")
+  getUsages(): Observable<any[]> {
+    return this.baseService.get('usages');
   }
-  getTypes():Observable<any[]>{
-    return this.httpClient.get<any[]>("http://localhost:3000/types")
+  getTypes(): Observable<any[]> {
+    return this.baseService.get('types');
   }
-  editIndustrial(editedIndustrial:any,id:number):Observable<any>{
-    return this.httpClient.put<any>("http://localhost:3000/industrials/"+id,editedIndustrial)
+  editIndustrial(editedIndustrial: any, id: number): Observable<any> {
+    return this.baseService.put('industrials/',id, editedIndustrial);
   }
 }

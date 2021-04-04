@@ -33,30 +33,23 @@ export class IndustrialAddComponent implements OnInit {
     private router: Router,
     private IndustrialsService: IndustrialsService
   ) {}
-  checkAddress() {
-    return (
-      this.industrialForm.value.address.registerationNumber ||
-      this.industrialForm.value.address.registerationDate ||
-      this.industrialForm.value.address.registerationLocation ||
-      this.industrialForm.value.address.primaryPelalk ||
-      this.industrialForm.value.address.secondaryPelak ||
-      this.industrialForm.value.address.details
-    );
-  }
   addAddress() {
     const modalRef = this.modalService.open(AddressModalComponent);
-    if (this.checkAddress()) {
-      modalRef.componentInstance.addressObject = this.industrialForm.value.address;
+    if (this.industrialForm.get('address')) {
+      modalRef.componentInstance.initialize(this.industrialForm.value.address);
     }
     this.subscription = modalRef.componentInstance.emitService.subscribe(
       (emmitedValue: any) => {
-        this.industrialForm.controls['address'].setValue(emmitedValue.value);
+        this.industrialForm.setControl('address', emmitedValue);
         modalRef.close();
       }
     );
     modalRef.componentInstance.closeEmit.subscribe(() => {
       modalRef.close();
     });
+  }
+  getValidity() {
+    console.log((<FormArray>this.industrialForm.get('buildings'))) ;
   }
   onAddBuilding() {
     var formGroup = new FormGroup({
@@ -71,8 +64,8 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).push(formGroup);
   }
 
-  getControls() {
-    return (this.industrialForm.get('buildings') as FormArray).controls;
+  getBuildings() {
+    return (this.industrialForm.get('buildings') as FormArray);
   }
   back() {
     this.router.navigateByUrl('/industrial');
@@ -81,7 +74,6 @@ export class IndustrialAddComponent implements OnInit {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
   onSubmit() {
-    console.log(this.industrialForm.value);
     this.submitted = true;
     if (this.industrialForm.valid) {
       if (!this.industrialId) {
@@ -113,14 +105,7 @@ export class IndustrialAddComponent implements OnInit {
         value: new FormControl(null),
         location: new FormControl(null),
       }),
-      address: this.formBuilder.group({
-        registerationNumber: new FormControl(),
-        registerationDate: new FormControl(),
-        registerationLocation: new FormControl(),
-        primaryPelalk: new FormControl(),
-        secondaryPelak: new FormControl(),
-        details: new FormControl(),
-      }),
+
       fence: this.formBuilder.group({
         length: new FormControl(null),
         height: new FormControl(null),
@@ -137,7 +122,19 @@ export class IndustrialAddComponent implements OnInit {
       this.industrialId = params['id'];
       this.IndustrialsService.getIndustrialById(this.industrialId).subscribe(
         (industrial: any) => {
+          if (industrial.address) {
+            this.industrialForm.addControl('address',this.formBuilder.group({
+              registerationNumber: [industrial.registerationNumber],
+              registerationDate:[industrial.registerationDate],
+              registerationLocation: [industrial.registerationLocation],
+              primaryPelalk: [industrial.primaryPelalk],
+              secondaryPelak: [industrial.secondaryPelak],
+              details: [industrial.details]
+
+            }))
+          }
           this.industrialForm.patchValue(industrial);
+
           industrial.buildings.forEach((building: any) => {
             var formGroup = new FormGroup({
               value: new FormControl(building.value, [Validators.required]),
@@ -158,6 +155,7 @@ export class IndustrialAddComponent implements OnInit {
 
             (<FormArray>this.industrialForm.get('buildings')).push(formGroup);
           });
+
         }
       );
     });

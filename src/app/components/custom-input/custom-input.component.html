@@ -1,0 +1,12 @@
+<label  for="input">{{ customLabel }}</label>
+<input #inp
+  class="form-control"
+  (blur)="onTouched()"
+  (input)="onChange(inp.value)"
+  [disabled]="disabled"
+  [value]="value"
+  id="input"
+  type="{{ customType }}"
+  placeholder="{{ customPlaceholder }}"
+/>
+<app-error-messages [control]="formControl"></app-error-messages>

@@ -22,7 +22,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SiedbarComponent,
     DashboardComponent,
     SettingComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, BusinussModule, HttpClientModule, NgbModule],
   providers: [],

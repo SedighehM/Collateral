@@ -8,39 +8,26 @@
         <form class="myForm" [formGroup]="industrialForm">
           <div class="form-row">
             <div class="form-group col-md-4">
-              <label for="id">شناسه وثیقه</label>
+              <app-custom-input customType="text" customLabel="شناسه وثیقه" formControlName="id">
+              </app-custom-input>
+              <!-- <label for="id">شناسه وثیقه</label>
               <input type="text" formControlName="id" placeholder="شناسه وثیقه را وارد کنید" class="form-control" id="id">
               <span class="text-danger errorMessage" *ngIf="industrialForm.controls.id.invalid
               && (industrialForm.controls.id.touched
               || industrialForm.controls.id.errors?.dirty || submitted)
-               && industrialForm.controls.id.errors?.required">شناسه وثیقه اجباری است</span>
+               && industrialForm.controls.id.errors?.required">شناسه وثیقه اجباری است</span> -->
             </div>
             <div class="form-group col-md-4">
-              <label for="owner">نام مالک وثیقه</label>
-              <input type="text" formControlName="owner" class="form-control" id="owner" placeholder="نام مالک وثیقه را وارد کنید">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.owner.invalid
-               && (industrialForm.controls.owner.touched
-               || industrialForm.controls.owner.errors?.dirty || submitted)
-                && industrialForm.controls.owner.errors?.required">نام مالک اجباری است</span>
-
-
+              <app-custom-input customType="text" customLabel="نام مالک وثیقه" formControlName="owner">
+              </app-custom-input>
+                  </div>
+            <div class="form-group col-md-4">
+              <app-custom-input customType="date" customLabel="تاریخ ثبت وثیقه" formControlName="entryDate">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="entryDate">تاریخ ثبت وثیقه</label>
-              <input type="date" formControlName="entryDate" class="form-control" id="entryDate">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.entryDate.invalid
-              && (industrialForm.controls.entryDate.touched
-              || industrialForm.controls.entryDate.errors?.dirty || submitted)
-               && industrialForm.controls.entryDate.errors?.required">تاریخ ثبت اجباری است</span>
-            </div>
-            <div class="form-group col-md-4">
-              <label for="name">نام طرح</label>
-              <input type="text" class="form-control" formControlName="name" id="name"
-                placeholder="نام طرح را وارد کنید">
-              <span class="text-danger errorMessage" *ngIf="industrialForm.controls.name.invalid
-                && (industrialForm.controls.name.touched
-                || industrialForm.controls.name.errors?.dirty || submitted)
-                 && industrialForm.controls.name.errors?.required">نام طرح اجباری است</span>
+              <app-custom-input customType="text" customLabel="نام طرح" formControlName="name">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
               <label for="inputAddress">نوع طرح صنعتی</label>
@@ -53,7 +40,7 @@
               <button type="button" class="btn btn-secondary" (click)="addAddress()">
                 ثبت و ویرایش نشانی طرح </button>
             </div>
-            <div *ngIf="checkAddress()" class="card" style="padding: 10px;">
+            <div *ngIf="industrialForm.value.address" class="card" style="padding: 10px;">
               <div class="card-header">
                 <h6>اطلاعات سند رسمی</h6>
               </div>
@@ -66,49 +53,39 @@
                 <h6 class="col-4">فرعی <span class="badge badge-secondary">{{industrialForm.value.address?.secondaryPelak}}</span></h6>
                 <h6 class="col-4">توضیحات سند <span class="badge badge-secondary">{{industrialForm.value.address?.details}}</span></h6>
               </div>
-
             </div>
           </div>
-
-
           <div class="form-row" formGroupName="landPropertie">
             <div class="form-group col-md-4">
-              <label for="area">مساحت زمین طرح</label>
-              <input type="text" formControlName="area" class="form-control" id="area"
-                placeholder="مساحت زمین طرح را وارد کنید">
+              <app-custom-input customType="text" customLabel="مساحت زمین طرح" formControlName="area">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="cost">قیمت هر مترمربع</label>
-              <input type="text" class="form-control" formControlName="cost" id="cost"
-                placeholder="قیمت هر مترمربع را وارد کنید">
+              <app-custom-input customType="text" customLabel="قیمت هر مترمربع" formControlName="cost">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="value">ارزش زمین</label>
-              <input type="text" class="form-control" formControlName="value" id="value"
-                placeholder="ارزش زمین را وارد کنید">
+              <app-custom-input customType="text" customLabel="ارزش زمین" formControlName="value">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-12">
-              <label for="location">مکان و موقعیت طرح</label>
-              <input type="text" class="form-control" id="location" formControlName="location"
-                placeholder="مکان و موقعیت طرح را وارد کنید">
+              <app-custom-input customType="text" customLabel="مکان و موقعیت طرح" formControlName="location">
+              </app-custom-input>
             </div>
           </div>
 
           <div class="form-row" formGroupName="fence">
             <div class="form-group col-md-4">
-              <label for="length">طول دیوار</label>
-              <input type="text" class="form-control" formControlName="length" id="length"
-                placeholder="طول دیوار را وارد کنید">
+              <app-custom-input customType="text" customLabel="طول دیوار" formControlName="length">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="height">ارتفاع دیوار</label>
-              <input type="text" class="form-control" id="height" formControlName="height"
-                placeholder="ارتفاع دیوار را وارد کنید">
+              <app-custom-input customType="text" customLabel="ارتفاع دیوار" formControlName="height">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="fenceType">نوع دیوارکشی</label>
-              <input type="text" class="form-control" formControlName="fenceType" id="fenceType"
-                placeholder="نوع دیوارکشی را وارد کنید">
+              <app-custom-input customType="text" customLabel="نوع دیوارکشی" formControlName="fenceType">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
               <label for="status">وضعیت دیوارکشی</label>
@@ -118,19 +95,17 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <label for="completedDate">تاریخ تکمیل دیوارکشی</label>
-              <input type="date" class="form-control" formControlName="completedDate" id="completedDate"
-                placeholder="مکان و موقعیت طرح را وارد کنید">
+              <app-custom-input customType="date" customLabel="تاریخ تکمیل دیوارکشی" formControlName="completedDate">
+              </app-custom-input>
             </div>
             <div class="form-group col-md-4">
-              <label for="fenceValue">ارزش دیوارکشی</label>
-              <input type="text" class="form-control" formControlName="fenceValue" id="fenceValue"
-                placeholder="ارزش دیوارکشی را وارد کنید">
+              <app-custom-input customType="text" customLabel="ارزش دیوارکشی" formControlName="fenceValue">
+              </app-custom-input>
             </div>
           </div>
           <button type="button" (click)="onAddBuilding()" class="btn btn-secondary">افزودن ساختمان</button>
 
-          <table *ngIf="getControls().length>0" class="table table-bordered">
+          <table *ngIf="getBuildings().controls.length>0" class="table table-bordered">
             <thead>
               <th>ردیف</th>
               <th>کاربری ساختمان</th>
@@ -142,45 +117,44 @@
               <th>عملیات</th>
             </thead>
             <tbody formArrayName="buildings">
-              <tr *ngFor="let building of getControls(); let i=index;let l=last" [formGroupName]="i">
+              <tr *ngFor="let building of getBuildings().controls; let i=index;let l=last" [formGroupName]="i">
                 <td>{{i+1}}</td>
                 <td>
                   <select formControlName="buildingUsage" class="form-control">
                     <option value="null">کاربری ساختمان</option>
                     <option *ngFor="let usage of usages" [value]="usage">{{usage}}</option>
                   </select>
-                  <span class="text-danger" *ngIf="building.hasError('required',['buildingUsage'])">اجباری</span>
+                  <span class="text-danger" *ngIf="getBuildings().controls[i].hasError('required',['buildingUsage']) && getBuildings().controls[i].get('buildingUsage').invalid &&(getBuildings().controls[i].get('buildingUsage').touched
+                  || getBuildings().controls[i].get('buildingUsage').errors?.dirty || submitted)">اجباری</span>
                 </td>
                 <td>
-                  <input formControlName="floors" class="form-control">
-                  <span class="text-danger" *ngIf="building.hasError('required',['floors'])">اجباری</span>
+                  <app-custom-input customType="text"  formControlName="floors">
+                  </app-custom-input>
                 </td>
                 <td>
-                  <input formControlName="buildingArea" class="form-control">
-                  <span class="text-danger" *ngIf="building.hasError('required',['buildingArea'])">اجباری</span>
+                  <app-custom-input customType="text"  formControlName="buildingArea">
+                  </app-custom-input>
                 </td>
                 <td>
                   <select formControlName="buildingSatus" class="form-control">
                     <option value="null">وضعیت ساختمان</option>
                     <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
                   </select>
-
-                  <span class="text-danger" *ngIf="building.hasError('required',['buildingSatus'])">اجباری</span>
+                  <span class="text-danger" *ngIf="getBuildings().controls[i].hasError('required',['buildingSatus']) && getBuildings().controls[i].invalid &&(getBuildings().controls[i].touched
+                  || getBuildings().controls[i].errors?.dirty || submitted)">اجباری</span>
                 </td>
                 <td>
-                  <input type="date" formControlName="completedDate" class="form-control">
-                  <span class="text-danger" *ngIf="building.hasError('required',['completedDate'])">اجباری</span>
-
+                  <app-custom-input customType="date"  formControlName="completedDate">
+                  </app-custom-input>
                 </td>
                 <td>
-                  <input formControlName="value" class="form-control">
-                  <span class="text-danger" *ngIf="building.hasError('required',['value'])">اجباری</span>
+                  <app-custom-input  formControlName="value">
+                  </app-custom-input>
                 </td>
                 <td>
-                  <button *ngIf="getControls().length > 0" (click)="deleteBuilding(i)"
+                  <button *ngIf="getBuildings().controls.length > 0" (click)="deleteBuilding(i)"
                     class="btn btn-danger">حذف</button>
                 </td>
-
               </tr>
             </tbody>
           </table>
@@ -188,15 +162,11 @@
             <div class="col-9"></div>
             <div class="col-2">
               <button type="button" (click)="back()" class="btn btn-danger">بازگشت</button>
-
             </div>
             <div class="col-1">
               <button type="submit" (click)="onSubmit()" class="btn btn-success">ثبت</button>
-
-
             </div>
           </div>
-
         </form>
       </div>
     </div>

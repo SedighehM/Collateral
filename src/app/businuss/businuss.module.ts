@@ -7,6 +7,8 @@ import { IndustrialAddComponent } from './components/industrial-add/industrial-a
 import { IndustrialComponent } from './components/industrial/industrial.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from './pipes/filter.pipe';
+import { CustomInputComponent } from '../components/custom-input/custom-input.component';
+import { ErrorMessagesComponent } from '../components/error-messages/error-messages.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     IndustrialAddComponent,
     FilterPipe,
     AddressModalComponent,
+    CustomInputComponent,
+    ErrorMessagesComponent
+
   ],
   imports: [CommonModule, ReactiveFormsModule,HttpClientModule, FormsModule],
 })
