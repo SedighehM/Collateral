@@ -8,8 +8,6 @@ export function validate( ) : MethodDecorator {
 
     descriptor.value = function (...args) {
       if (this.industrialForm.invalid) return; // exit the function
-
-      // This part will run when Meteor.isClient == false
       method.apply(this, args);
     };
   }

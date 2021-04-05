@@ -9,4 +9,4 @@
   type="{{ customType }}"
   placeholder="{{ customPlaceholder }}"
 />
-<app-error-messages [control]="formControl"></app-error-messages>
+<app-error-messages *ngIf="formControl.touched||parent.submitted" [controlErrors]="formControl.errors"></app-error-messages>

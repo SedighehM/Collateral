@@ -27,6 +27,7 @@ export class IndustrialAddComponent implements OnInit {
   types: any[] = [];
   subscription: Subscription = new Subscription();
   industrialId: number = 0;
+
   constructor(
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
@@ -76,7 +77,6 @@ export class IndustrialAddComponent implements OnInit {
   }
   @validate()
   onSubmit() {
-    this.submitted = true;
       if (!this.industrialId) {
         this.IndustrialsService.insertIndustrial(
           this.industrialForm.value

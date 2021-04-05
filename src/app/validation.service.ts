@@ -5,30 +5,17 @@ import { Injectable } from '@angular/core';
 })
 export class ValidationService {
   constructor() {}
-  // static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
-  //   const config = {
-  //     required: 'اجباری است',
-  //     invalidEmailAddress: 'Invalid email address',
-  //     invalidPassword:
-  //       'Invalid password. Password must be at least 6 characters long, and contain a number.',
-  //     minlength: `Minimum length ${validatorValue.requiredLength}`,
-  //   };
-
-  //   return config[validatorName];
-  // }
-  static getValidatorErrorMessage(control) {
+  static getValidatorErrorMessage(controlErrors) {
     const config = {
       required: 'اجباری است',
       invalidEmailAddress: 'Invalid email address',
       invalidPassword:
         'Invalid password. Password must be at least 6 characters long, and contain a number.',
-        email:'email'
+      email: 'email',
     };
     var errors = [];
-    for (const propertyName in control.errors) {
-      if (control.touched) {
-        errors.push(config[propertyName]);
-      }
+    for (const propertyName in controlErrors) {
+      errors.push(config[propertyName]);
     }
     return errors;
   }
