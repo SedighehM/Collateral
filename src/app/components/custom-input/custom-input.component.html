@@ -8,5 +8,7 @@
   id="input"
   type="{{ customType }}"
   placeholder="{{ customPlaceholder }}"
+  autofocus
+
 />
 <app-error-messages *ngIf="formControl.touched||parent.submitted" [controlErrors]="formControl.errors"></app-error-messages>

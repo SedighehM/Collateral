@@ -1,5 +1,19 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { AbstractControl, ControlContainer, FormGroupDirective, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+import {
+  Component,
+  ElementRef,
+  forwardRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
+import {
+  AbstractControl,
+  ControlContainer,
+  FormGroupDirective,
+  NG_VALIDATORS,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-custom-input',
@@ -9,19 +23,16 @@ import { AbstractControl, ControlContainer, FormGroupDirective, NG_VALIDATORS, N
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => CustomInputComponent),
-      multi: true
+      multi: true,
     },
     {
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => CustomInputComponent),
-      multi: true
-    }
-
-  ]
-
+      multi: true,
+    },
+  ],
 })
 export class CustomInputComponent implements OnInit {
-
   value: string;
   onChange: (value: any) => void;
   onTouched: () => void;
@@ -30,16 +41,14 @@ export class CustomInputComponent implements OnInit {
   @Input() customLabel: string;
   @Input() customPlaceholder: string;
   formControl: AbstractControl;
-  parent:FormGroupDirective
+  parent: FormGroupDirective;
+  @ViewChild('inp', { read: ElementRef }) input: ElementRef;
 
-  constructor(public controlContainer: ControlContainer,private parentF: FormGroupDirective) {
-  }
+  constructor(private parentF: FormGroupDirective) {}
   validate(control: AbstractControl): ValidationErrors | null {
     this.formControl = control;
-    this.parent=this.parentF;
-
+    this.parent = this.parentF;
     return control.invalid ? control.errors : null;
-
   }
   writeValue(value: string): void {
     this.value = value ? value : '';
@@ -56,11 +65,10 @@ export class CustomInputComponent implements OnInit {
     this.disabled = isDisabled;
   }
 
-
-  ngOnInit(): void {
-
+  ngOnInit(): void {}
+  ngAfterViewInit() {
+    if (this.formControl.errors) {
+      this.formControl['elementref']=this.input
+    }
   }
-
-
-
 }
