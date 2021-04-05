@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddressModalComponent } from '../address-modal/address-modal.component';
 import { IndustrialsService } from '../../services/industrials.service';
 import { Subscription } from 'rxjs';
+import {  validate } from 'src/app/validate-decorator';
 
 @Component({
   selector: 'app-industrial-add',
@@ -73,9 +74,9 @@ export class IndustrialAddComponent implements OnInit {
   deleteBuilding(index: number) {
     (<FormArray>this.industrialForm.get('buildings')).removeAt(index);
   }
+  @validate()
   onSubmit() {
     this.submitted = true;
-    if (this.industrialForm.valid) {
       if (!this.industrialId) {
         this.IndustrialsService.insertIndustrial(
           this.industrialForm.value
@@ -90,7 +91,7 @@ export class IndustrialAddComponent implements OnInit {
           this.back();
         });
       }
-    }
+
   }
   buildForm() {
     this.industrialForm = this.formBuilder.group({

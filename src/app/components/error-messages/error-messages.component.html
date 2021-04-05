@@ -1,1 +1,1 @@
-<span class="text-danger errorMessage"*ngIf="errorMessage !== null">{{errorMessage}}</span>
+<span *ngFor="let errorMessage of errorMessages" class="text-danger errorMessage">{{errorMessage}}</span>
