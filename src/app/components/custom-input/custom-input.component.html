@@ -2,13 +2,14 @@
 <input #inp
   class="form-control"
   (blur)="onTouched()"
-  (input)="onChange(inp.value)"
+  (input)="sendValue(inp.value)"
   [disabled]="disabled"
   [value]="value"
   id="input"
   type="{{ customType }}"
   placeholder="{{ customPlaceholder }}"
   autofocus
+
 
 />
 <app-error-messages *ngIf="formControl.touched||parent.submitted" [controlErrors]="formControl.errors"></app-error-messages>

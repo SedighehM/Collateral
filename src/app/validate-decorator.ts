@@ -8,6 +8,7 @@ export function validate(): MethodDecorator {
 
     descriptor.value = function (...args) {
       if (this.industrialForm.invalid) {
+        console.log(this.industrialForm.value)
         for (const key of Object.keys(this.industrialForm.controls)) {
           if (this.industrialForm.controls[key].invalid) {
             this.industrialForm.controls[key].elementref.nativeElement.focus();

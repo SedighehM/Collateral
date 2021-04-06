@@ -14,6 +14,7 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
 } from '@angular/forms';
+import * as moment from 'jalali-moment';
 
 @Component({
   selector: 'app-custom-input',
@@ -51,7 +52,7 @@ export class CustomInputComponent implements OnInit {
     return control.invalid ? control.errors : null;
   }
   writeValue(value: string): void {
-    this.value = value ? value : '';
+    this.value = value ? this.ricieveValue(value) : '';
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;
@@ -68,7 +69,20 @@ export class CustomInputComponent implements OnInit {
   ngOnInit(): void {}
   ngAfterViewInit() {
     if (this.formControl.errors) {
-      this.formControl['elementref']=this.input
+      this.formControl['elementref'] = this.input;
+    }
+  }
+  ricieveValue(value: any) {
+    if (this.customType === 'date') {
+
+      return moment.from(value, 'fa', 'YYYY/MM/DD').format("yyyy-MM-DD");
+    } else return value;
+  }
+  sendValue(value: any) {
+    if (this.customType === 'date') {
+      this.onChange(moment(value, "yyyy-MM-DD").locale('fa').format('YYYY/MM/DD'));
+    } else {
+      this.onChange(value);
     }
   }
 }
